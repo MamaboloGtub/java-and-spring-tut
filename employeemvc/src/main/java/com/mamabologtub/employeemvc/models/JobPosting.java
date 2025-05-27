@@ -1,6 +1,7 @@
 package com.mamabologtub.employeemvc.models;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import jakarta.persistence.Entity;
 import lombok.Data;
@@ -12,7 +13,7 @@ import lombok.Data;
 @Data
 public class JobPosting {
 
-    private Long jobId;
+    private UUID postId;
     private String jobTitle;
     private String jobDescription;
     private String location;
