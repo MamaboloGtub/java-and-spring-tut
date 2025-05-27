@@ -13,4 +13,3 @@ type Director {
     id: ID
     name: String
 }
-type:
