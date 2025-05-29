@@ -1,20 +1,40 @@
 package com.mamabologtub.graphql_tutorial.model;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+public class MovieDto {
+    private  Integer id;
+    private String title;
+    private  Integer duration;
+    private DirectorDto director;
 
-public record MovieDto(Integer id, String title, Integer duration, Integer directorId) {
-    public static List<MovieDto> movies = Arrays.asList(
-        new MovieDto(1, "The Shawshank Redenption", 142, 11),
-        new MovieDto(2, "The Dark Knight", 152, 22),
-        new MovieDto(3, "Inception", 148, 22),
-        new MovieDto(4, "The Matrix", 136, 33)
-    );
+    public Integer getId() {
+        return id;
+    }
 
-    public static Optional<MovieDto> getMovieById(Integer id) {
-        return movies.stream()
-            .filter(m -> m.id.equals(id))
-            .findFirst();
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Integer getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Integer duration) {
+        this.duration = duration;
+    }
+
+    public DirectorDto getDirector() {
+        return director;
+    }
+
+    public void setDirector(DirectorDto director) {
+        this.director = director;
     }
 }

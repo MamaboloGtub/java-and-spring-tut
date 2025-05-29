@@ -1,7 +1,7 @@
 package com.mamabologtub.graphql_tutorial.controller;
 
-import com.mamabologtub.graphql_tutorial.model.DirectorDto;
-import com.mamabologtub.graphql_tutorial.model.MovieDto;
+import com.mamabologtub.graphql_tutorial.model.Director;
+import com.mamabologtub.graphql_tutorial.model.Movie;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
@@ -14,16 +14,16 @@ import java.util.Optional;
 public class MovieController {
 
     @QueryMapping //map this function to the graphQl query
-    public List<MovieDto> movies() {
-        return MovieDto.movies;
+    public List<Movie> movies() {
+        return Movie.movies;
     }
     @QueryMapping
-    public Optional<MovieDto> movieById(@Argument Integer id) {
-        return  MovieDto.getMovieById(id);
+    public Optional<Movie> movieById(@Argument Integer id) {
+        return  Movie.getMovieById(id);
     }
 
     @SchemaMapping
-    public Optional<DirectorDto> director(MovieDto movieDto) {
-        return  DirectorDto.getDirectorById(movieDto.directorId());
+    public Optional<Director> director(Movie movie) {
+        return  Director.getDirectorById(movie.directorId());
     }
 }
