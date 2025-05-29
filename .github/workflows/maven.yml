@@ -28,10 +28,6 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
-    defaults:
-      run:
-        working-directory: graphql-tutorial
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -40,7 +36,9 @@ jobs:
         run: ls -la
 
       - name: Show graphql-tutorial directory structure
-        run: ls -la graphql-tutorial
+        run: |
+          echo "Searching for graphql-tutorial..."
+          find . -type d -name "graphql-tutorial"
 
       - name: Set up JDK 21
         uses: actions/setup-java@v4
@@ -69,8 +67,9 @@ jobs:
 
       - name: Build with Maven using CI profile
         run: mvn -B clean package -Dspring.profiles.active=ci
+        working-directory: ./graphql-tutorial
 
       - name: Submit Maven Dependency graph
         run: mvn com.github.ferstl:depgraph-maven-plugin:4.0.3:aggregate -DskipTests
-        working-directory: graphql-tutorial
+        working-directory: ./graphql-tutorial
           
