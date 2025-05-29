@@ -17,9 +17,9 @@ jobs:
       postgres:
         image: postgres:15
         env:
-          POSTGRES_DB: postgres
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: Tshepo123
+          POSTGRES_DB: ${{ secrets.DB_NAME }}
+          POSTGRES_USER: ${{ secrets.DB_USERNAME }}
+          POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
         ports:
           - 5432:5432
         options: >-
@@ -64,7 +64,7 @@ jobs:
       - name: Build with Maven using CI profile
         run: mvn -B clean package -Dspring.profiles.active=ci
 
-      - name: Update dependency graph
-        uses: advanced-security/maven-dependency-submission-action@v4
-        with:
-          working-directory: graphql-tutorial
+      - name: Submit Maven Dependency graph
+        run: |
+          cd graphql-tutorial
+          mvn com.github.ferstl:depgraph-maven-plugin:4.0.3:aggregate -DskipTests
