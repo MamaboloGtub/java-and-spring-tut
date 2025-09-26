@@ -67,5 +67,12 @@ pipeline {
                }
            }
         }
+        stage('Run Project'){
+            steps {
+                dir('deploy') {
+                    bat 'start /B java -jar *.jar > app.log 2>&1'
+                }
+            }
+        }
     }
 }
