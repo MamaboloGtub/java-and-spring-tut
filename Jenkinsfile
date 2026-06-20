@@ -3,6 +3,7 @@ pipeline {
 
     tools {
         maven 'm3'
+        jdk 'jdk21'
     }
 
     stages {
@@ -29,7 +30,7 @@ pipeline {
         stage('Compile Project') {
             steps {
                 dir('project-build/library-system') {
-                    withMaven(maven: 'm3') {
+                    withMaven(maven: 'm3', jdk: 'jdk21') {
                         bat 'mvn -B -DskipTests=true clean compile'
                     }
                 }
@@ -52,7 +53,7 @@ pipeline {
         stage('Package Project') {
             steps {
                 dir('project-build/library-system') {
-                    withMaven(maven: 'm3') {
+                    withMaven(maven: 'm3', jdk: 'jdk21') {
                         bat 'mvn -B clean package -DskipTests'
                     }
                 }
@@ -70,7 +71,9 @@ pipeline {
         stage('Run Project'){
             steps {
                 dir('deploy') {
-                    bat 'start /B java -jar *.jar > app.log 2>&1'
+                    withMaven(maven: 'm3', jdk: 'jdk21') {
+                        bat 'start /B java -jar *.jar > app.log 2>&1'
+                    }
                 }
             }
         }
